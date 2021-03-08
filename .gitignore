@@ -1,0 +1,4 @@
+node_modules
+
+# package에 대한 보안과 관련
+package-lock.json
