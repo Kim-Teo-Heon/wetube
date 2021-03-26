@@ -6,13 +6,13 @@ const LOGOUT = '/logout';
 const SEARCH = '/search';
 
 // Users
-const USERS = '/user';
+const USERS = '/users';
 const USER_DETAL = '/:id';
 const EDIT_PROFILE = '/edit-profile';
 const CHANGE_PASSWORD = '/change-password';
 
 // Videos
-const VIDEOS = '/video';
+const VIDEOS = '/videos';
 const UPLOAD = '/upload';
 const VIDEO_DETAIL = '/:id';
 const EDIT_VIDEO = '/:id/edit'
@@ -26,7 +26,7 @@ const routes = {
     search : SEARCH,
     users : USERS,
     users_datail : USER_DETAL,
-    eidt_profile : EDIT_PROFILE,
+    edit_profile : EDIT_PROFILE,
     change_password : CHANGE_PASSWORD,
     videos : VIDEOS,
     upload : UPLOAD,

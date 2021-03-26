@@ -1,0 +1,5 @@
+mixin video_block(video = {})
+    .video-container
+        iframe(src=video.video_file, frameborder="0")  
+        h4.video-block__title=video.title
+        h6.video-block__views=video.views 

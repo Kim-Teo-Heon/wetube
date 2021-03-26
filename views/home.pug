@@ -1,4 +1,7 @@
 extends ./layouts/main
+include ./mixins/video_block
 
 block content 
-    p Home
+    .videos
+        each video in videos 
+            +video_block(video)
