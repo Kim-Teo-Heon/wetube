@@ -9,7 +9,7 @@ export const search = (req, res) => {
     // 옛날 방법
     // const searching_by = req.query.term;
     
-    res.render('search', {page_title : 'Search', searching_by});
+    res.render('search', {page_title : 'Search', searching_by, videos});
 }
 export const upload = (req, res) => res.render('upload', {page_title : 'Upload'});
 export const video_detail = (req, res) => res.send('video_detail', {page_title : 'Video Detail'});

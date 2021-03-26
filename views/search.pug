@@ -1,4 +1,8 @@
 extends ./layouts/main
+include ./mixins/video_block
 
 block content 
     h3 Searching By: #{searching_by}
+    
+    each video in videos
+        +video_block(video)
