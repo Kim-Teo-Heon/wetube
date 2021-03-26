@@ -12,12 +12,17 @@ export const post_join = (req, res) => {
         res.status(400);
         res.render('join', {page_name:"Join"});
     } else {
+        // To Do : Register User
+        // To Do : Log User In
         res.redirect(routes.home);
     }
 
 }
 
 export const login = (req, res) => {res.render('login', {page_name:"Login"});};
-export const logout = (req, res) => res.send('logout');
+export const logout = (req, res) => {
+    // To Do : Process Log Out
+    res.redirect(routes.home);
+}
 export const edit_profile = (req, res) => res.render("edit_profile");
 export const change_password = (req, res) => res.render("change_password");
