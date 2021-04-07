@@ -1,6 +1,6 @@
 mixin video_block(video = {})
     .video-container
         a(href=routes.video_detail(video.id))
-            iframe(src=video.video_file, frameborder="0")  
+            video.video-block__thumbnail(src=video.file_url, controls="true") 
             h4.video-block__title=video.title
             h6.video-block__views=video.views 
