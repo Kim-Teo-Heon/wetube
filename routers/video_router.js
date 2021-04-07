@@ -13,7 +13,7 @@ const video_router = express.Router();
 video_router.get(routes.upload, get_upload);
 video_router.post(routes.upload, upload_video, post_upload);
 
-video_router.get(routes.edit_video, edit_video);
+video_router.get(routes.edit_video(), edit_video);
 video_router.get(routes.delete_video, edit_video);
 
 video_router.get(routes.video_detail(), video_detail);

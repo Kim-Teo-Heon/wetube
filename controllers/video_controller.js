@@ -4,10 +4,8 @@ import video from "../models/video";
 export const home = async (req, res) => {
   try {
     const videos = await video.find({});
-    console.log(videos);
     res.render("home", { page_title: "Home", videos });
   } catch (error) {
-    console.log(error);
     res.render("home", { page_title: "Home", videos: [] });
   }
 };
@@ -37,16 +35,24 @@ export const post_upload = async (req, res) => {
     title,
     description,
   });
-  console.log(new_video);
   // To Do : Upload Video and Save Video
   res.redirect(routes.video_detail(new_video.id));
-  console.log("end");
 };
 
-export const edit_video = (req, res) =>
+export const video_detail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const Video = await video.findById(id);
+    res.render("video_detail", { page_title: "Video Detail", video: Video });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+export const edit_video = (req, res) => {
+  console.log("Edit page");
   res.render("edit_video", { page_title: "Edit Video" });
+};
 export const delete_video = (req, res) =>
   res.render("delete_video", { page_title: "Delete Video" });
-
-export const video_detail = (req, res) =>
-  res.render("video_detail", { page_title: "Video Detail" });
