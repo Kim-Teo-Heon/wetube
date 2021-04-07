@@ -50,7 +50,13 @@ const routes = {
       return EDIT_VIDEO;
     }
   },
-  delete_video: DELETE_VIDEO,
+  delete_video: (id) => {
+    if (id) {
+      return `/videos/${id}/delete`;
+    } else {
+      return DELETE_VIDEO;
+    }
+  },
 };
 
 export default routes;

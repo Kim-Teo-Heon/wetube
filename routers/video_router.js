@@ -5,6 +5,7 @@ import {
   get_upload,
   post_upload,
   video_detail,
+  delete_video,
 } from "../controllers/video_controller";
 import { upload_video } from "../middlewares";
 import routes from "../routes";
@@ -23,6 +24,6 @@ video_router.get(routes.edit_video(), get_edit_video);
 video_router.post(routes.edit_video(), post_edit_video);
 
 // Delete Video
-video_router.get(routes.delete_video, get_edit_video);
+video_router.get(routes.delete_video(), delete_video);
 
 export default video_router;
