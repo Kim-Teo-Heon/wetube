@@ -2,7 +2,11 @@ extends ./layouts/main
 include ./mixins/video_block
 
 block content 
-    h3 Searching By: #{searching_by}
-    
-    each video in videos
-        +video_block(video)
+    .search__header
+        h3 Searching By: #{searching_by}
+    .search__videos
+        if videos.length === 0
+            h5 No Videos Found
+        else
+            each video in videos
+                +video_block(video)

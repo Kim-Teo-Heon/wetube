@@ -9,14 +9,26 @@ export const home = async (req, res) => {
     res.render("home", { page_title: "Home", videos: [] });
   }
 };
-export const search = (req, res) => {
+export const search = async (req, res) => {
   // 최신 방법
   const {
     query: { term: searching_by },
   } = req;
   // 옛날 방법
   // const searching_by = req.query.term;
-
+  let videos = [];
+  try {
+    videos = await video.find({
+      $or: [
+        { title: { $regex: searching_by, $options: "i" } },
+        { description: { $regex: searching_by, $options: "i" } },
+      ],
+    });
+    // i => 대문자 소문자 구별 x
+    console.log(videos);
+  } catch (error) {
+    console.log(error);
+  }
   res.render("search", { page_title: "Search", searching_by, videos });
 };
 

@@ -1,4 +1,4 @@
-mixin video-block(video = {})
+mixin video_block(video = {})
     .video-container
         a(href=routes.video_detail(video.id))
             video.video-block__thumbnail(src=video.file_url, controls="true") 
