@@ -18,6 +18,7 @@ app.set("view engine", "pug");
 app.use(logger("dev"));
 app.use(body_parser.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("static"));
 app.use(body_parser.json());
 app.use(cookie_parser());
 app.use(locals_middleware);

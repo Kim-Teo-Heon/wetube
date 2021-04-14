@@ -13,5 +13,6 @@ module.exports = {
     "prettier/prettier": "off",
     "no-console": "off",
     camelcase: "off",
+    "new-cap": "off",
   },
 };
