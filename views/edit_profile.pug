@@ -2,10 +2,12 @@ extends ./layouts/main
 
 block content
     .form-container
-        form(action=`${routes.users}${routes.edit_profile}` method = 'post') 
-            label(for="file") Avatar
-            input(type="file", id="file", name="file") 
+        form(action=`/users${routes.edit_profile}` method = 'post') 
+            .file-upload
+                label(for="file") Avatar
+                input(type="file", id="file", name="file") 
             input(type="text", name="name", placeholder="Name")
             input(type="text", name="email", placeholder="Email")
             input(type="submit", value="Update Profile")
-        a(href=`${routes.users}${routes.change_password}`) Change Passowrd
+        a.form-container__link(href=`${routes.users}${routes.change_password}`)
+            button Change Password

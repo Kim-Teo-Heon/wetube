@@ -2,6 +2,10 @@ extends ./layouts/main
 include ./mixins/video_block
 
 block content 
-    .videos
+    .home-videos
         each video in videos 
+            +video_block(video)
+            +video_block(video)
+            +video_block(video)
+            +video_block(video)
             +video_block(video)

@@ -1,4 +1,12 @@
 @import "config/variables";
-body {
-  background-color: $bg_color;
-}
+@import "config/reset.scss";
+@import "main.scss";
+
+@import "partials/header.scss";
+@import "partials/footer.scss";
+@import "partials/form.scss";
+@import "partials/social_login.scss";
+@import "partials/video_block.scss";
+
+@import "pages/home.scss";
+@import "pages/video_detail.scss";

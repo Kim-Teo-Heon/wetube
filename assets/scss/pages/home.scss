@@ -1,0 +1,16 @@
+.home-videos {
+  display: grid;
+  // minmax => min보다 크거나 같고, mqx 보다 같거나 작은 범위
+  grid-template-columns: repeat(6, minmax(150px, 1fr));
+  grid-gap: 30px;
+  .video-block:first-child,
+  .video-block:nth-child(2) {
+    // span 3 => grid의 3칸
+    grid-column: span 3;
+  }
+  .video-block:nth-child(3),
+  .video-block:nth-child(4),
+  .video-block:nth-child(5) {
+    grid-column: span 2;
+  }
+}
