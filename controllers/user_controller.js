@@ -45,6 +45,7 @@ export const github_login_callback = async (
   const {
     _json: { id, avatar_url, name, email },
   } = profile;
+  console.log(avatar_url);
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -72,5 +73,24 @@ export const logout = (req, res) => {
   req.logout();
   res.redirect(routes.home);
 };
+
+export const get_me = (req, res) => {
+  res.render("user_detail", { page_title: "User Detail", user: req.user });
+};
+
+export const user_detail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const user = await User.findById(id);
+    console.log(user);
+    res.render("user_detail", { page_title: "User Detail", user });
+  } catch (error) {
+    console.log("Error");
+    res.redirect(routes.home);
+  }
+};
+
 export const edit_profile = (req, res) => res.render("edit_profile");
 export const change_password = (req, res) => res.render("change_password");

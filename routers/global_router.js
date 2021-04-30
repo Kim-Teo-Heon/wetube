@@ -8,6 +8,7 @@ import {
   post_github_login,
   post_join,
   post_login,
+  get_me,
 } from "../controllers/user_controller";
 import { home, search } from "../controllers/video_controller";
 import { only_private, only_public } from "../middlewares";
@@ -34,5 +35,7 @@ global_router.get(
   }),
   post_github_login
 );
+
+global_router.get(routes.me, get_me);
 
 export default global_router;
