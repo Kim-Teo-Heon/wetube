@@ -21,7 +21,9 @@
   .social-login--github {
     background-color: $black;
   }
-  .social-login--facebook {
-    background-color: #3a5998;
+  .social-login--kakao {
+    img {
+      width: 100%;
+    }
   }
 }

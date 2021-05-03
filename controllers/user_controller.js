@@ -45,7 +45,6 @@ export const github_login_callback = async (
   const {
     _json: { id, avatar_url, name, email },
   } = profile;
-  console.log(avatar_url);
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -66,6 +65,42 @@ export const github_login_callback = async (
 };
 
 export const post_github_login = (req, res) => {
+  res.redirect(routes.home);
+};
+
+export const kakao_login = passport.authenticate("kakao");
+export const kakao_login_callback = async (
+  access_token,
+  refresh_token,
+  profile,
+  cb
+) => {
+  const {
+    _json: {
+      id,
+      properties: { nickname: name, profile_image: avatar_url },
+      kakao_account: { email },
+    },
+  } = profile;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.kakao_id = id;
+      user.save();
+      return cb(null, user);
+    }
+    const new_user = await User.create({
+      email,
+      name,
+      kakao_id: id,
+      avatar_url,
+    });
+    return cb(null, new_user);
+  } catch (error) {
+    return cb(error);
+  }
+};
+export const post_kakao_login = (req, res) => {
   res.redirect(routes.home);
 };
 

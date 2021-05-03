@@ -9,6 +9,8 @@ import {
   post_join,
   post_login,
   get_me,
+  kakao_login,
+  post_kakao_login,
 } from "../controllers/user_controller";
 import { home, search } from "../controllers/video_controller";
 import { only_private, only_public } from "../middlewares";
@@ -34,6 +36,13 @@ global_router.get(
     failureRedirect: routes.login,
   }),
   post_github_login
+);
+
+global_router.get(routes.kakao, kakao_login);
+global_router.get(
+  routes.kakao_callback,
+  passport.authenticate("kakao", { failureRedirect: routes.login }),
+  post_kakao_login
 );
 
 global_router.get(routes.me, get_me);
