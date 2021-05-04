@@ -46,7 +46,7 @@ export const github_login_callback = async (
     _json: { id, avatar_url, name, email },
   } = profile;
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ $or: [{ email }, { github_id: id }] });
     if (user) {
       user.github_id = id;
       user.save();
@@ -82,8 +82,9 @@ export const kakao_login_callback = async (
       kakao_account: { email },
     },
   } = profile;
+  console.log(id);
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ $or: [{ email }, { kakao_id: id }] });
     if (user) {
       user.kakao_id = id;
       user.save();
@@ -127,5 +128,28 @@ export const user_detail = async (req, res) => {
   }
 };
 
-export const edit_profile = (req, res) => res.render("edit_profile");
-export const change_password = (req, res) => res.render("change_password");
+export const get_edit_profile = (req, res) => {
+  res.render("edit_profile", { page_title: "Edit Profile" });
+};
+export const post_edit_profile = async (req, res) => {
+  const {
+    user: { _id: id, avatar_url },
+    body: { name, email },
+    file,
+  } = req;
+  console.log(file);
+  try {
+    await User.findByIdAndUpdate(id, {
+      name,
+      email,
+      avatar_url: file ? file.path : avatar_url,
+    });
+    res.redirect(routes.me);
+  } catch (error) {
+    res.redirect(routes.edit_profile);
+  }
+};
+
+export const change_password = (req, res) => {
+  res.render("change_password", { page_title: "Change Password" });
+};

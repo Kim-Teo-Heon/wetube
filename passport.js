@@ -36,4 +36,6 @@ passport.use(
 passport.serializeUser((user, done) => done(null, user));
 // deserializeUser => 어느 사용자인지 어떻게 찾는가
 // 찾은 사용자를 middleware나 routes의 request object에 할당
-passport.deserializeUser((user, done) => done(null, user));
+passport.deserializeUser((id, done) =>
+  User.findById(id, (error, user) => done(error, user))
+);

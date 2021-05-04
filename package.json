@@ -37,7 +37,7 @@
     "webpack-cli": "^4.6.0"
   },
   "scripts": {
-    "dev:server": "nodemon --exec babel-node bin/www.js --ignore 'scss' ",
+    "dev:server": "nodemon --exec babel-node bin/www.js --ignore '.scss' --ignore 'static' ",
     "dev:assets": "cross-env webpack_env=development webpack -w",
     "build:assets": "cross-env webpack_env=production webpack"
   },
