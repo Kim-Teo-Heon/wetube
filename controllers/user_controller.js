@@ -22,6 +22,7 @@ export const post_join = async (req, res, next) => {
       next();
     } catch (error) {
       console.log(error);
+      res.redirect(routes.home);
     }
   }
 };
@@ -82,7 +83,6 @@ export const kakao_login_callback = async (
       kakao_account: { email },
     },
   } = profile;
-  console.log(id);
   try {
     const user = await User.findOne({ $or: [{ email }, { kakao_id: id }] });
     if (user) {
@@ -120,10 +120,8 @@ export const user_detail = async (req, res) => {
   } = req;
   try {
     const user = await User.findById(id);
-    console.log(user);
     res.render("user_detail", { page_title: "User Detail", user });
   } catch (error) {
-    console.log("Error");
     res.redirect(routes.home);
   }
 };
@@ -137,7 +135,6 @@ export const post_edit_profile = async (req, res) => {
     body: { name, email },
     file,
   } = req;
-  console.log(file);
   try {
     await User.findByIdAndUpdate(id, {
       name,
@@ -150,6 +147,23 @@ export const post_edit_profile = async (req, res) => {
   }
 };
 
-export const change_password = (req, res) => {
+export const get_change_password = (req, res) => {
   res.render("change_password", { page_title: "Change Password" });
+};
+export const post_change_password = async (req, res) => {
+  const {
+    body: { old_password, new_password, new_password1 },
+  } = req;
+  try {
+    if (new_password !== new_password1) {
+      res.status(400);
+      res.redirect(`/users/${routes.change_password}`);
+      return;
+    }
+    await req.user.changePassword(old_password, new_password);
+    res.redirect(routes.me);
+  } catch (error) {
+    res.status(400);
+    res.redirect(`/users/${routes.change_password}`);
+  }
 };

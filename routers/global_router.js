@@ -21,7 +21,7 @@ const global_router = express.Router();
 global_router.get(routes.home, home);
 
 global_router.get(routes.join, only_public, get_join);
-global_router.post(routes.join, only_public, post_join);
+global_router.post(routes.join, only_public, post_join, post_login);
 
 global_router.get(routes.login, only_public, get_login);
 global_router.post(routes.login, only_public, post_login);

@@ -1,6 +1,7 @@
 import express from "express";
 import {
-  change_password,
+  get_change_password,
+  post_change_password,
   get_edit_profile,
   post_edit_profile,
   user_detail,
@@ -18,7 +19,8 @@ user_router.post(
   post_edit_profile
 );
 
-user_router.get(routes.change_password, only_private, change_password);
+user_router.get(routes.change_password, only_private, get_change_password);
+user_router.post(routes.change_password, only_private, post_change_password);
 
 user_router.get(routes.users_detail(), only_private, user_detail);
 
