@@ -16,7 +16,7 @@ const user_schema = new mongoose.Schema({
   videos: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "videos",
+      ref: "video",
     },
   ],
 });

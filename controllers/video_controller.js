@@ -72,10 +72,14 @@ export const get_edit_video = async (req, res) => {
   } = req;
   try {
     const edit_video = await video.findById(id);
-    res.render("edit_video", {
-      page_title: `Edit ${edit_video.title}`,
-      video: edit_video,
-    });
+    if (edit_video.creator != req.user.id) {
+      throw Error();
+    } else {
+      res.render("edit_video", {
+        page_title: `Edit ${edit_video.title}`,
+        video: edit_video,
+      });
+    }
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -97,10 +101,15 @@ export const delete_video = async (req, res) => {
   const {
     params: { id },
   } = req;
-  console.log(id);
+
   try {
-    await video.deleteOne({ _id: id });
-    // await video.findOneAndRemove({ _id: id });
+    const edit_video = await video.findById(id);
+    if (edit_video.creator != req.user.id) {
+      throw Error();
+    } else {
+      await video.deleteOne({ _id: id });
+      // await video.findOneAndRemove({ _id: id });
+    }
   } catch (error) {
     console.log(error);
   }
