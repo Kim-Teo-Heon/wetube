@@ -5,8 +5,14 @@ block content
         .video__player 
             video(src=`/${video.file_url}`)
         .video__info 
-            a(href=routes.edit_video(video.id)) Edit Video
+            if logged_user 
+                if logged_user.id === video.creator.id
+                    a(href=routes.edit_video(video.id)) 
+                        button Edit Video
             h5.video__title=video.title
-            span.video__views=video.views
             p.video__description=video.description
+            span.video__views=video.views
+            .video__author
+                |Upload by
+                a(href=routes.users_detail(video.creator.id))=video.creator.name
         .video__comments 

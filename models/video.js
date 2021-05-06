@@ -18,6 +18,10 @@ const video_schema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
 });
 
 const model = mongoose.model("video", video_schema);

@@ -21,7 +21,6 @@ export const post_join = async (req, res, next) => {
       await User.register(user, password);
       next();
     } catch (error) {
-      console.log(error);
       res.redirect(routes.home);
     }
   }
@@ -139,7 +138,7 @@ export const post_edit_profile = async (req, res) => {
     await User.findByIdAndUpdate(id, {
       name,
       email,
-      avatar_url: file ? file.path : avatar_url,
+      avatar_url: file ? `/${file.path}` : avatar_url,
     });
     res.redirect(routes.me);
   } catch (error) {

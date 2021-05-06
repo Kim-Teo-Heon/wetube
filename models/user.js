@@ -7,6 +7,18 @@ const user_schema = new mongoose.Schema({
   avatar_url: String,
   kakao_id: Number,
   github_id: Number,
+  comment: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "comment",
+    },
+  ],
+  videos: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "videos",
+    },
+  ],
 });
 
 // usernameField를 username으로 하지않는 이유는 username 변경 시 확인이 복잡해짐
