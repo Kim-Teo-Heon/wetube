@@ -1,18 +1,19 @@
 extends ./layouts/main
+include ./mixins/video_player
 
 block content
     .video-detail__container
-        .video__player 
-            video(src=`/${video.file_url}`)
-        .video__info 
-            if logged_user 
-                if logged_user.id === video.creator.id
-                    a(href=routes.edit_video(video.id)) 
-                        button Edit Video
-            h5.video__title=video.title
-            p.video__description=video.description
-            span.video__views=video.views
-            .video__author
-                |Upload by
-                a(href=routes.users_detail(video.creator.id))=video.creator.name
+        +video_player({
+            src:video.file_url
+        })
+        .video__info  
+        if logged_user && logged_user.id === video.creator.id
+            a(href=routes.edit_video(video.id)) 
+                button Edit Video
+        h5.video__title=video.title
+        p.video__description=video.description
+        span.video__views=video.views
+        .video__author
+            |Upload by
+            a(href=routes.users_detail(video.creator.id))=video.creator.name
         .video__comments 

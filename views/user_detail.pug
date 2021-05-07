@@ -6,13 +6,12 @@ block content
         .user-profile__header
             img.u-avatar(src=user.avatar_url)
             h4.profile__username=user.name
-    if logged_user
-        if user.id === logged_user.id
-            .user-profile__btns 
-                a(href=`/users${routes.edit_profile}`)
-                    button Edit Profile
-                a(href=`/users${routes.change_password}`)
-                    button Change Password
+    if logged_user && user.id === logged_user.id
+        .user-profile__btns 
+            a(href=`/users${routes.edit_profile}`)
+                button Edit Profile
+            a(href=`/users${routes.change_password}`)
+                button Change Password
     .upload-videos
         each item in user.videos
             +video_block(item) 

@@ -1,0 +1,43 @@
+.video-player {
+  position: relative;
+  &:hover {
+    .video-player__controls {
+      opacity: 1;
+    }
+  }
+  video {
+    max-width: 100%;
+  }
+  .video-player__controls {
+    opacity: 0;
+    transition: opacity 0.4s linear;
+    color: white;
+    position: absolute;
+    z-index: 9;
+    bottom: 5px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    display: grid;
+    // column(열)의 크기 정의
+    grid-template-columns: repeat(3, 1fr);
+    font-size: 16px;
+    .video-player__column:first-child {
+      display: flex;
+      align-items: center;
+      span:first-child {
+        margin-right: 10px;
+      }
+    }
+    .video-player__column:last-child {
+      justify-self: end;
+    }
+    .video-player__column:nth-child(2) {
+      justify-self: center;
+    }
+    i {
+      font-size: 25px;
+      cursor: pointer;
+    }
+  }
+}

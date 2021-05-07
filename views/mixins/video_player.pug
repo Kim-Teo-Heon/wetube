@@ -1,0 +1,15 @@
+mixin video_player(video={})
+    .video-player#js-video-player
+        video(src=`/${video.src}`)
+        .video-player__controls
+            .video-player__column
+                span 
+                    i.fas.fa-volume-up
+                span 
+                    |00:00 / 10:00
+            .video-player__column 
+                span#js-play-btn
+                    i.fas.fa-play
+            .video-player__column
+                span
+                    i.fas.fa-expand 
