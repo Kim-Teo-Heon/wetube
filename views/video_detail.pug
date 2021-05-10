@@ -7,13 +7,13 @@ block content
             src:video.file_url
         })
         .video__info  
-        if logged_user && logged_user.id === video.creator.id
-            a(href=routes.edit_video(video.id)) 
-                button Edit Video
-        h5.video__title=video.title
-        p.video__description=video.description
-        span.video__views=video.views
-        .video__author
-            |Upload by
-            a(href=routes.users_detail(video.creator.id))=video.creator.name
-        .video__comments 
+            if logged_user && logged_user.id === video.creator.id
+                a(href=routes.edit_video(video.id)) 
+                    button Edit Video
+            h5.video__title=video.title
+            p.video__description=video.description
+            span.video__views=video.views
+            .video__author
+                |Upload by
+                a(href=routes.users_detail(video.creator.id))=video.creator.name
+            .video__comments 

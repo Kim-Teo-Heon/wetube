@@ -7,6 +7,7 @@ const volume_btn = document.getElementById("js-volume-btn");
 const full_screen_btn = document.getElementById("js-full-screen");
 const total_time = document.getElementById("total_time");
 const current_time = document.getElementById("current_time");
+const volume_range = document.getElementById("js-volume");
 
 function handle_play_click() {
   if (video_player.paused) {
@@ -21,9 +22,11 @@ function handle_play_click() {
 function handle_volume_click() {
   if (video_player.muted) {
     video_player.muted = false;
+    volume_range.value = video_player.volume;
     volume_btn.innerHTML = '<i class="fas fa-volume-up"></i>';
   } else {
     video_player.muted = true;
+    volume_range.value = 0;
     volume_btn.innerHTML = '<i class="fas fa-volume-mute"></i>';
   }
 }
@@ -84,15 +87,37 @@ function get_current_time() {
 function set_total_time() {
   const total_time_string = format_date(video_player.duration);
   total_time.innerHTML = total_time_string;
-  setInterval(get_current_time, 1000);
+}
+
+function handle_ended() {
+  video_player.currentTime = 0;
+  play_btn.innerHTML = '<i class="fas fa-play"></i>';
+}
+
+function handle_drag(event) {
+  const {
+    target: { value },
+  } = event;
+  video_player.volume = value;
+  if (volume_range.value >= 0.6) {
+    volume_btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+  } else if (volume_range.value >= 0.2) {
+    volume_btn.innerHTML = '<i class="fas fa-volume-down"></i>';
+  } else {
+    volume_btn.innerHTML = '<i class="fas fa-volume-off"></i>';
+  }
 }
 
 function init() {
+  video_player.volume = 0.5;
   video_player.addEventListener("click", handle_play_click);
+  video_player.addEventListener("ended", handle_ended);
+  video_player.addEventListener("timeupdate", get_current_time);
   play_btn.addEventListener("click", handle_play_click);
   volume_btn.addEventListener("click", handle_volume_click);
   full_screen_btn.addEventListener("click", go_full_screen);
   video_player.addEventListener("loadedmetadata", set_total_time);
+  volume_range.addEventListener("input", handle_drag);
 }
 
 if (video_container) {
