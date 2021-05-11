@@ -2,6 +2,9 @@ extends ./layouts/main
 
 block content 
     .form-container
+        .record-container#js-record-container 
+            video#js-video-preview
+            button#js-record-btn Start Recording
         form(action=`${routes.videos}${routes.upload}`, method='post', enctype="multipart/form-data")    
             .file-upload
                 label(for="file", required=true) Video File
