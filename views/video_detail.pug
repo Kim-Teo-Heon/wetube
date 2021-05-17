@@ -12,8 +12,25 @@ block content
                     button Edit Video
             h5.video__title=video.title
             p.video__description=video.description
-            span.video__views=video.views
+            if video.views == 1
+                span.video__views #{video.views} view 
+            else 
+                span.video__views #{video.views} views
             .video__author
                 |Upload by
                 a(href=routes.users_detail(video.creator.id))=video.creator.name
-            .video__comments 
+            .video__comments
+                span.video__comment-number            
+                    span#js-comment-number=`${video.comments.length} `
+                    if video.comments.length === 1                    
+                        | comment
+                    else
+                        | comments
+                form.add__comment#js-add-comment
+                    input(type="text",placeholder="Add a Comment")
+                ul.video__comments-list#js-comment-list
+                    each comment,index in video.comments.reverse()
+                        li(data-index=index)
+                            span=comment.text
+                            if logged_user && logged_user.id === comment.creator.id
+                                button ❌

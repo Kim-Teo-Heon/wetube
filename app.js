@@ -12,6 +12,7 @@ import routes from "./routes";
 import user_router from "./routers/user_router";
 import global_router from "./routers/global_router";
 import video_router from "./routers/video_router";
+import api_router from "./routers/api_router";
 
 // app에 express 실행 한 것을 담음
 const app = express();
@@ -50,5 +51,6 @@ app.use(locals_middleware);
 app.use(routes.home, global_router);
 app.use(routes.users, user_router);
 app.use(routes.videos, video_router);
+app.use(routes.api, api_router);
 
 export default app;

@@ -27,6 +27,12 @@ const GITHUB_CALLBACK = "/auth/github/callback";
 const KAKAO = "/auth/kakao";
 const KAKAO_CALLBACK = "/auth/kakao/callback";
 
+// API
+const API = "/api";
+const REGISTER_VIEW = "/:id/view";
+const ADD_COMMENT = "/:id/comment";
+const DELETE_COMMENT = "/:id/comment";
+
 const routes = {
   home: HOME,
   join: JOIN,
@@ -71,6 +77,10 @@ const routes = {
   github_callback: GITHUB_CALLBACK,
   kakao: KAKAO,
   kakao_callback: KAKAO_CALLBACK,
+  api: API,
+  register_view: REGISTER_VIEW,
+  add_commnet: ADD_COMMENT,
+  delete_comment: DELETE_COMMENT,
 };
 
 export default routes;

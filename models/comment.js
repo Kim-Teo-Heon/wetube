@@ -9,11 +9,15 @@ const comment_schema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  video: {
+  creator: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "video",
+    ref: "user",
   },
+  // video: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "video",
+  // },
 });
 
-const db = mongoose.model("commnet", comment_schema);
+const db = mongoose.model("comment", comment_schema);
 export default db;

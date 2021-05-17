@@ -1,5 +1,6 @@
 import routes from "../routes";
 import video from "../models/video";
+import Comment from "../models/comment";
 
 export const home = async (req, res) => {
   try {
@@ -25,7 +26,6 @@ export const search = async (req, res) => {
       ],
     });
     // i => 대문자 소문자 구별 x
-    console.log(videos);
   } catch (error) {
     console.log(error);
   }
@@ -58,7 +58,13 @@ export const video_detail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const Video = await video.findById(id).populate("creator");
+    const Video = await video
+      .findById(id)
+      .populate("creator")
+      .populate({
+        path: "comments",
+        populate: { path: "creator" },
+      });
     res.render("video_detail", { page_title: Video.title, video: Video });
   } catch (error) {
     console.log(error);
@@ -114,4 +120,69 @@ export const delete_video = async (req, res) => {
     console.log(error);
   }
   res.redirect(routes.home);
+};
+
+export const post_register_view = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const Video = await video.findById(id);
+    Video.views += 1;
+    Video.save();
+    res.status(200);
+  } catch (error) {
+    console.log(error);
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+export const post_add_comment = async (req, res) => {
+  const {
+    params: { id },
+    user,
+    body: { comment },
+  } = req;
+  try {
+    const Video = await video.findById(id);
+    const new_comment = await Comment.create({
+      text: comment,
+      creator: user.id,
+    });
+    Video.comments.push(new_comment.id);
+    Video.save();
+    res.status(200);
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+export const delete_comment = async (req, res) => {
+  const {
+    params: { id },
+    body: { index },
+  } = req;
+  try {
+    const Video = await video.findById(id);
+    const delete_comment_id = Video.comments.reverse()[index];
+    const comment = await Comment.findById(delete_comment_id);
+
+    if (req.user.id === comment.creator.toString()) {
+      await Comment.deleteOne({ _id: delete_comment_id });
+      await Video.comments.filter((element) => element !== delete_comment_id);
+      Video.save();
+    } else {
+      throw Error();
+    }
+    res.status(200);
+  } catch (error) {
+    console.log(error);
+    res.status(400);
+  } finally {
+    res.end();
+  }
 };

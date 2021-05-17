@@ -87,9 +87,15 @@ function set_total_time() {
   total_time.innerHTML = total_time_string;
 }
 
+const register_view = () => {
+  const video_id = window.location.href.split("/videos/")[1];
+  fetch(`/api/${video_id}/view`, { method: "POST" });
+};
+
 function handle_ended() {
   video_player.currentTime = 0;
   play_btn.innerHTML = '<i class="fas fa-play"></i>';
+  register_view();
 }
 
 function handle_drag(event) {
