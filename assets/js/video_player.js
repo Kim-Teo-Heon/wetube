@@ -1,3 +1,5 @@
+// import get_blob_duration from "get-blob-duration";
+
 const video_container = document.getElementById("js-video-player");
 const video_player = document.querySelector("#js-video-player video");
 const play_btn = document.getElementById("js-play-btn");
@@ -82,7 +84,11 @@ function get_current_time() {
   current_time.innerHTML = format_date(video_player.currentTime);
 }
 
-function set_total_time() {
+async function set_total_time() {
+  // const blob = await fetch(video_player.src).then((response) =>
+  //   response.blob()
+  // );
+  // const duration = await get_blob_duration(blob);
   const total_time_string = format_date(video_player.duration);
   total_time.innerHTML = total_time_string;
 }

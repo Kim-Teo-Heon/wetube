@@ -1,8 +1,28 @@
 import multer from "multer";
+import aws from "aws-sdk";
+import multer_s3 from "multer-s3";
 import routes from "./routes";
 
-const multer_video = multer({ dest: "uploads/videos/" });
-const multer_avatar = multer({ dest: "uploads/avatars" });
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_PRIVATE_KEY,
+  region: "ap-northeast-2",
+});
+
+const multer_video = multer({
+  storage: multer_s3({
+    s3,
+    acl: "public-read",
+    bucket: "wetube-2021-test/video",
+  }),
+});
+const multer_avatar = multer({
+  storage: multer_s3({
+    s3,
+    acl: "public-read",
+    bucket: "wetubve-2021-test/avatar",
+  }),
+});
 
 export const locals_middleware = (req, res, next) => {
   res.locals.site_name = "WeTube";
