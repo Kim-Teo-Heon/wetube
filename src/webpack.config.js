@@ -4,7 +4,7 @@ const mini_css_extract_plugin = require("mini-css-extract-plugin");
 const auto_pre_fixer = require("autoprefixer");
 
 // mode는 Package.json에서 가져온다 (Cross-env install)
-const mode = process.env.webpack_env;
+const mode = process.env.WEBPACK_ENV;
 // resolve => 파일, 절대 경로
 const entry_file = path.resolve(__dirname, "assets", "js", "main.js");
 // join => 디렉토리, 상대 경로

@@ -1,3 +1,5 @@
+include ../mixins/message
+
 doctype html
 head
     link(rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous")
@@ -6,6 +8,21 @@ head
     script(src="/static/main.js", defer)
     link(rel="icon",href="data:;base64,iVBORw0KGgo=")
 body
+    if messages.error
+        +message({
+            type:"error",
+            text:messages.error
+        })
+    else if messages.info 
+        +message({
+            type:"info",
+            text:messages.info
+        })
+    else if messages.success
+        +message({
+            type:"success",
+            text: messages.success
+        })
     include ../partials/header
     main
         block content

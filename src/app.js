@@ -5,6 +5,8 @@ import cookie_parser from "cookie-parser";
 import body_parser from "body-parser";
 // 세션을 관리해주는 패키지
 import session from "express-session";
+import path from "path";
+import flash from "express-flash";
 import mongo_store from "connect-mongo";
 import passport from "passport";
 import { locals_middleware } from "./middlewares";
@@ -19,11 +21,10 @@ const app = express();
 
 app.use(helmet({ contentSecurityPolicy: false }));
 app.set("view engine", "pug");
-
+app.set("views", path.join(__dirname, "views"));
 app.use(logger("dev"));
 app.use(body_parser.urlencoded({ extended: true }));
-app.use("/uploads", express.static("uploads"));
-app.use("/static", express.static("static"));
+app.use("/static", express.static(path.join(__dirname, "static")));
 app.use(cookie_parser());
 app.use(body_parser.json());
 // 세션 활성화
@@ -35,6 +36,8 @@ app.use(
     store: mongo_store.create({ mongoUrl: process.env.MONGO_URL }),
   })
 );
+app.use(flash());
+
 // passport 구동
 app.use(passport.initialize());
 // 세션연결

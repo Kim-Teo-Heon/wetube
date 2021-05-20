@@ -10,6 +10,7 @@ export const post_join = async (req, res, next) => {
 
   if (password !== password2) {
     // 구글의 비밀 번호 저장을 막기 위함
+    req.flash("error", "Password don't match");
     res.status(400);
     res.render("join", { page_name: "Join" });
   } else {
@@ -32,9 +33,14 @@ export const get_login = (req, res) => {
 export const post_login = passport.authenticate("local", {
   failureRedirect: routes.login,
   successRedirect: routes.home,
+  failureFlash: "Can't log in. Check email and/or password",
+  successFlash: "Welcome",
 });
 
-export const github_login = passport.authenticate("github");
+export const github_login = passport.authenticate("github", {
+  failureFlash: "Welcome",
+  successFlash: "Can't log in at this time",
+});
 
 export const github_login_callback = async (
   access_token,
@@ -68,7 +74,10 @@ export const post_github_login = (req, res) => {
   res.redirect(routes.home);
 };
 
-export const kakao_login = passport.authenticate("kakao");
+export const kakao_login = passport.authenticate("kakao", {
+  failureFlash: "Can't log in at this time",
+  successFlash: "Welcome",
+});
 export const kakao_login_callback = async (
   access_token,
   refresh_token,
@@ -106,6 +115,7 @@ export const post_kakao_login = (req, res) => {
 
 export const logout = (req, res) => {
   req.logout();
+  req.flash("info", "Logged out, see you later");
   res.redirect(routes.home);
 };
 
@@ -121,6 +131,7 @@ export const user_detail = async (req, res) => {
     const user = await User.findById(id).populate("videos");
     res.render("user_detail", { page_title: "User Detail", user });
   } catch (error) {
+    req.flash("error", "User not found");
     res.redirect(routes.home);
   }
 };
@@ -140,8 +151,10 @@ export const post_edit_profile = async (req, res) => {
       email,
       avatar_url: file ? `/${file.location}` : avatar_url,
     });
+    req.flash("success", "Profile updated");
     res.redirect(routes.me);
   } catch (error) {
+    req.flash("error", "Can't update profile");
     res.redirect(routes.edit_profile);
   }
 };
@@ -155,6 +168,7 @@ export const post_change_password = async (req, res) => {
   } = req;
   try {
     if (new_password !== new_password1) {
+      req.flash("error", "Pssword don't match");
       res.status(400);
       res.redirect(`/users/${routes.change_password}`);
       return;
@@ -162,6 +176,7 @@ export const post_change_password = async (req, res) => {
     await req.user.changePassword(old_password, new_password);
     res.redirect(routes.me);
   } catch (error) {
+    req.flash("error", "Can't change password");
     res.status(400);
     res.redirect(`/users/${routes.change_password}`);
   }
