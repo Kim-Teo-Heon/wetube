@@ -54,7 +54,6 @@
     "build:server": "babel src --out-dir build --ignore 'src/assets','src/static','src/webpack.config.js'",
     "copyAll": "xcopy src\\static build\\static /d /e /h /y /i && xcopy src\\views build\\views /d /e /h /y /i",
     "build": "npm run build:server && npm run build:assets && npm run copyAll",
-    "prebuild": "rmdir /s /q build",
     "start": "node build/bin/www.js"
   },
   "devDependencies": {
